@@ -3,45 +3,49 @@
 
 int main() {
 
-	node *grafo = Graph::createGraph((char *)"um");
+	node *grafo = Graph::cria_grafo((char *)"um");
 
-	std::cout << Graph::getName(grafo) << std::endl;
+	std::cout << Graph::retorna_nome_grafo(grafo) << std::endl;
 
-	Graph::addVertice(grafo, (char *)"dois");
-	Graph::addVertice(grafo, (char *)"tres");
+	Graph::adiciona_vertice(grafo, (char *)"dois");
+	Graph::adiciona_vertice(grafo, (char *)"tres");
 
 	try {
-		Graph::addVertice(grafo, (char *)"um");
+		Graph::adiciona_vertice(grafo, (char *)"um");
 	} catch (const std::exception &e) {
 		std::cout << "Erro: " << e.what() << std::endl;
 	}
 
-	Graph::addVertice(grafo, (char *)"quatu");
+	Graph::adiciona_vertice(grafo, (char *)"quatu");
 
-	Graph::setNodeValue(grafo, (char *)"quatu", 22);
-	std::cout << Graph::getNodeValue(grafo, (char *)"quatu") << std::endl;
-
-	Graph::delVertice(grafo, (char *)"quatu");
-
-	Graph::addLink(grafo, (char *)"um", (char *)"dois");
-	Graph::addLink(grafo, (char *)"um", (char *)"tres");
-
-	Graph::setLinkValue(grafo, (char *)"um", (char *)"tres", 12);
-	std::cout << Graph::getLinkValue(grafo, (char *)"um", (char *)"tres")
+	Graph::muda_valor_vertice(grafo, (char *)"quatu", 22);
+	std::cout << Graph::retorna_valor_vertice(grafo, (char *)"quatu")
 			  << std::endl;
 
-	std::cout << Graph::isAdjacent(grafo, (char *)"um", (char *)"tres")
+	Graph::remove_vertice(grafo, (char *)"quatu");
+
+	Graph::adiciona_aresta(grafo, (char *)"um", (char *)"dois");
+	Graph::adiciona_aresta(grafo, (char *)"um", (char *)"tres");
+
+	Graph::muda_valor_aresta(grafo, (char *)"um", (char *)"tres", 12);
+	std::cout << Graph::retorna_valor_aresta(grafo, (char *)"um",
+											 (char *)"tres")
 			  << std::endl;
 
-	Graph::delLink(grafo, (char *)"um", (char *)"tres");
-
-	std::cout << Graph::isAdjacent(grafo, (char *)"um", (char *)"tres")
+	std::cout << Graph::adjacente(grafo, (char *)"um", (char *)"tres")
 			  << std::endl;
 
-	std::cout << "vizinhos: " << Graph::getNear(grafo, (char *)"um")
+	Graph::remove_aresta(grafo, (char *)"um", (char *)"tres");
+
+	std::cout << Graph::adjacente(grafo, (char *)"um", (char *)"tres")
 			  << std::endl;
 
-	Graph::freeGraph(grafo);
+	std::cout << "vizinhos: ";
+	for (link *vizinhos = Graph::vizinhos(grafo, (char *)"um");
+		 vizinhos->next != NULL; vizinhos = vizinhos->next)
+		std::cout << vizinhos->name << std::endl;
+
+	Graph::destroi_grafo(grafo);
 
 	return 0;
 }

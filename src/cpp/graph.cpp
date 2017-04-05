@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-node *Graph::createGraph(char *name) {
+node *Graph::cria_grafo(char *name) {
 	node *newG = (node *)malloc(sizeof(node));
 
 	newG->name = name;
@@ -14,9 +14,9 @@ node *Graph::createGraph(char *name) {
 	return newG;
 }
 
-char *Graph::getName(node *graph) { return graph->name; }
+char *Graph::retorna_nome_grafo(node *graph) { return graph->name; }
 
-void Graph::freeGraph(node *graph) {
+void Graph::destroi_grafo(node *graph) {
 	node *gAux;
 	node *g = graph;
 
@@ -36,7 +36,7 @@ void Graph::freeGraph(node *graph) {
 	graph = NULL;
 }
 
-bool Graph::isAdjacent(node *graph, char *a, char *b) {
+bool Graph::adjacente(node *graph, char *a, char *b) {
 	node *searchA = graph;
 	for (; searchA != NULL; searchA = searchA->next)
 		if (searchA != NULL)
@@ -76,7 +76,7 @@ bool Graph::isAdjacent(node *graph, char *a, char *b) {
 	return false;
 }
 
-std::string Graph::getNear(node *graph, char *a) {
+link *Graph::vizinhos(node *graph, char *a) {
 	node *search = graph;
 	for (; search != NULL; search = search->next)
 		if (search != NULL)
@@ -88,17 +88,10 @@ std::string Graph::getNear(node *graph, char *a) {
 	if (links == NULL)
 		return 0;
 
-	std::string cLinks;
-	while (links != NULL) {
-		cLinks += links->to->name;
-		cLinks += ", ";
-		links = links->next;
-	}
-
-	return cLinks;
+	return links;
 }
 
-void Graph::addVertice(node *graph, char *name) {
+void Graph::adiciona_vertice(node *graph, char *name) {
 
 	for (node *search = graph; search != NULL; search = search->next)
 		if (search != NULL)
@@ -120,7 +113,7 @@ void Graph::addVertice(node *graph, char *name) {
 	g->next = newV;
 }
 
-void Graph::delVertice(node *graph, char *name) {
+void Graph::remove_vertice(node *graph, char *name) {
 
 	node *search = graph;
 	for (; search != NULL; search = search->next)
@@ -155,7 +148,7 @@ void Graph::delVertice(node *graph, char *name) {
 	free(search);
 }
 
-void Graph::addLink(node *graph, char *from, char *to) {
+void Graph::adiciona_aresta(node *graph, char *from, char *to) {
 	node *searchFrom = graph;
 	for (; searchFrom != NULL; searchFrom = searchFrom->next)
 		if (searchFrom != NULL)
@@ -183,7 +176,7 @@ void Graph::addLink(node *graph, char *from, char *to) {
 		searchFrom->links = newL;
 }
 
-void Graph::delLink(node *graph, char *from, char *to) {
+void Graph::remove_aresta(node *graph, char *from, char *to) {
 	node *searchFrom = graph;
 	for (; searchFrom != NULL; searchFrom = searchFrom->next)
 		if (searchFrom != NULL)
@@ -213,7 +206,7 @@ void Graph::delLink(node *graph, char *from, char *to) {
 	free(links);
 }
 
-int Graph::getNodeValue(node *graph, char *name) {
+int Graph::retorna_valor_vertice(node *graph, char *name) {
 	node *search = graph;
 	for (; search != NULL; search = search->next)
 		if (search != NULL)
@@ -223,7 +216,7 @@ int Graph::getNodeValue(node *graph, char *name) {
 	return search->value;
 }
 
-void Graph::setNodeValue(node *graph, char *name, int value) {
+void Graph::muda_valor_vertice(node *graph, char *name, int value) {
 	node *search = graph;
 	for (; search != NULL; search = search->next)
 		if (search != NULL)
@@ -233,7 +226,7 @@ void Graph::setNodeValue(node *graph, char *name, int value) {
 	search->value = value;
 }
 
-int Graph::getLinkValue(node *graph, char *from, char *to) {
+int Graph::retorna_valor_aresta(node *graph, char *from, char *to) {
 	node *searchFrom = graph;
 	for (; searchFrom != NULL; searchFrom = searchFrom->next)
 		if (searchFrom != NULL)
@@ -257,7 +250,7 @@ int Graph::getLinkValue(node *graph, char *from, char *to) {
 	return links->value;
 }
 
-void Graph::setLinkValue(node *graph, char *from, char *to, int value) {
+void Graph::muda_valor_aresta(node *graph, char *from, char *to, int value) {
 	node *searchFrom = graph;
 	for (; searchFrom != NULL; searchFrom = searchFrom->next)
 		if (searchFrom != NULL)
