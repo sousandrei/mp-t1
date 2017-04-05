@@ -1,6 +1,6 @@
 #include "../hpp/graph.hpp"
 #include <iostream>
-#include <string>
+#include <stdexcept>
 
 node *Graph::cria_grafo(char *name) {
 	node *newG = (node *)malloc(sizeof(node));

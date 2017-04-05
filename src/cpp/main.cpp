@@ -41,9 +41,11 @@ int main() {
 			  << std::endl;
 
 	std::cout << "vizinhos: ";
+
 	for (link *vizinhos = Graph::vizinhos(grafo, (char *)"um");
-		 vizinhos->next != NULL; vizinhos = vizinhos->next)
-		std::cout << vizinhos->name << std::endl;
+		 vizinhos != NULL; vizinhos = vizinhos->next)
+		if (vizinhos)
+			std::cout << vizinhos->to->name << std::endl;
 
 	Graph::destroi_grafo(grafo);
 
