@@ -30,13 +30,16 @@ int main() {
 	std::cout << Graph::getLinkValue(grafo, (char *)"um", (char *)"tres")
 			  << std::endl;
 
-	std::cout << Graph::isAdjacent(grafo, "um", "tres") << std::endl;
+	std::cout << Graph::isAdjacent(grafo, (char *)"um", (char *)"tres")
+			  << std::endl;
 
-	// Graph::delLink(grafo, (char *)"um", (char *)"tres");
+	Graph::delLink(grafo, (char *)"um", (char *)"tres");
 
-	std::cout << Graph::isAdjacent(grafo, "um", "tres") << std::endl;
+	std::cout << Graph::isAdjacent(grafo, (char *)"um", (char *)"tres")
+			  << std::endl;
 
-	std::cout << "vizinhos: " << Graph::getNear(grafo, "um") << std::endl;
+	std::cout << "vizinhos: " << Graph::getNear(grafo, (char *)"um")
+			  << std::endl;
 
 	Graph::freeGraph(grafo);
 
