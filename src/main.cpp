@@ -1,4 +1,4 @@
-#include "../hpp/graph.hpp"
+#include "hpp/graph.hpp"
 #include <iostream>
 
 int main() {
@@ -42,12 +42,12 @@ int main() {
 
 	std::cout << "vizinhos: ";
 
-	for (link *vizinhos = Graph::vizinhos(grafo, (char *)"um");
+	for (struct link *vizinhos = Graph::vizinhos(grafo, (char *)"um");
 		 vizinhos != NULL; vizinhos = vizinhos->next)
 		if (vizinhos)
 			std::cout << vizinhos->to->name << std::endl;
 
-	Graph::destroi_grafo(grafo);
+	grafo = Graph::destroi_grafo(grafo);
 
 	return 0;
 }

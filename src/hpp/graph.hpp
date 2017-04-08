@@ -16,7 +16,7 @@ class Graph {
   public:
 	// retorna estrutura de dados grafo que tem um nome
 	// cria_grafo(nome);
-	static node *cria_grafo(char *);
+	static struct node *cria_grafo(char *);
 
 	// retorna o nome do grafo G
 	// retorna_nome_grafo(G);
@@ -24,7 +24,7 @@ class Graph {
 
 	// destrói grafo g
 	// destroi_grafo(G);
-	static void destroi_grafo(node *);
+	static struct node *destroi_grafo(node *);
 
 	// // verifica se x e y sao adjacentes em G
 	// adjacente(G, x, y);
@@ -34,7 +34,7 @@ class Graph {
 	// // a partir de x (existe uma aresta que vai de x para este
 	// // vértice)
 	// vizinhos(G, x);
-	static link *vizinhos(node *, char *);
+	static struct link *vizinhos(node *, char *);
 
 	// // adiciona vértice x no grafo G
 	// adiciona_vertice(G, x);

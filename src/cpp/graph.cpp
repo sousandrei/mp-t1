@@ -16,12 +16,31 @@ node *Graph::cria_grafo(char *name) {
 
 char *Graph::retorna_nome_grafo(node *graph) { return graph->name; }
 
-void Graph::destroi_grafo(node *graph) {
-	node *gAux;
+node *Graph::destroi_grafo(node *graph) {
 	node *g = graph;
+	node *gAux;
 
-	while (g->next != NULL)
+	link *vAux;
+	link *v;
+
+	while (g->next != NULL) {
+		v = g->links;
+
+		if (v != NULL) {
+			while (v->next != NULL)
+				v = v->next;
+
+			while (v->prev != NULL) {
+				vAux = v->prev;
+
+				free(v);
+
+				v = vAux;
+			}
+		}
+
 		g = g->next;
+	}
 
 	while (g->prev != NULL) {
 		gAux = g->prev;
@@ -33,7 +52,7 @@ void Graph::destroi_grafo(node *graph) {
 
 	free(graph);
 
-	graph = NULL;
+	return NULL;
 }
 
 bool Graph::adjacente(node *graph, char *a, char *b) {
@@ -164,6 +183,8 @@ void Graph::adiciona_aresta(node *graph, char *from, char *to) {
 	link *newL = (link *)malloc(sizeof(link));
 	newL->to = searchTo;
 	newL->next = NULL;
+	newL->prev = NULL;
+	newL->value = 0;
 
 	link *links = (link *)searchFrom->links;
 	if (links != NULL) {
