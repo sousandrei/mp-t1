@@ -7,8 +7,8 @@ LIBS = -lm -pthread -lgtest -lgtest_main
 EXEC = build/t1
 EXEC_TEST = build/t1_test
 
-CC = clang++-3.8
-# CC = g++
+# CC = clang++-3.8
+CC = g++
 
 DEP_FLAGS = -MT $@ -MMD -MP -MF $(DEP_PATH)/$*.d
 
@@ -22,6 +22,8 @@ CPP_FILES = $(wildcard $(SRC_PATH)/*.cpp)
 OBJ_FILES = $(addprefix $(BIN_PATH)/,$(notdir $(CPP_FILES:.cpp=.o)))
 DEP_FILES = $(wildcard $(DEP_PATH)/*.d)
 
+.PHONY: clean test test_build test_run
+
 all: $(EXEC)
 $(EXEC): src/main.cpp $(OBJ_FILES)
 	$(CC) -o $@ $^ $(LIBS)
@@ -31,9 +33,14 @@ $(BIN_PATH)/%.o: $(SRC_PATH)/%.cpp
 	@mkdir -p $(DEP_PATH) $(BIN_PATH) $(BUILD_PATH)
 	$(CC) $(DEP_FLAGS) -c -o $@ $< $(DIRECTIVES)
 
-test: $(EXEC_TEST)
+test: test_build test_run
+
+test_build: $(EXEC_TEST)
 $(EXEC_TEST): src/test/main.cpp $(OBJ_FILES)
 	$(CC) -o $@ $^ $(LIBS)
+	
+test_run:
+	./build/t1_test
 
 debug: DIRECTIVES += -ggdb
 debug: all
@@ -43,7 +50,6 @@ release: all
 
 print-% : ; @echo $* = $($*)
 
-.PHONY: clean
 clean:
 	$(RMDIR) $(TMP_PATH) $(BUILD_PATH)
 	$(RM) -f $(EXEC)
